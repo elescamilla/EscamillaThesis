@@ -1,33 +1,29 @@
 \chapter{Introduction}
 \label{ch:introduction}
 
-\todo[Counting frogs (Fig.~\ref{fig:frog}) has been traditionally done in the Web Science and Digital Libraries Research Lab (WS-DL)\footnote{\url{https://ws-dl.cs.odu.edu/}} to keep track of the days left until the next JCDL\footnote{\url{http://www.jcdl.org/}} submission deadline.
-Table~\ref{tab:frogsleft} illustrates how the frogs are counted.]
+\todo[Problem, contributions, thesis format]
 
-\begin{figure}
-  \centering
-  \includegraphics{frog}
-  \caption{The Mighty Frog}
-  \label{fig:frog}
-\end{figure}
+Problem: 
+Fake person: George
+George is a machine learning researcher. He is reading research papers that are directly related to his work. One of the papers details a methodology that George wants to build on. The paper includes a link to the GitHub repository where the source code for the methodology is hosted. When he navigates to the URL, the repository is not available as seen in Figure X (insert figure). George has heard of Software Heritage and knows that they archive source code, so he checks if Software Heritage has a copy of the source code that he is looking for. As shown in Figure X, Software Heritage does not have a copy of the code, so George checks the Internet Archive. Internet Archive does not have a copy of the source code either as shown in Figure X. Without access to the source code, the original methodology used in the study, George's ability to reproduce the study and build on its methodology to further research in his field is hindered. 
 
-\begin{table}
-  \centering
-  \caption{How many frogs left?}
-  \label{tab:frogsleft}
-  \begin{tabular}{ l | r }
-    \hline
-    \textbf{Day wrt. JCDL} & \textbf{Frogs left} \\
-    \hline
-    Immediately after      & 300+ \\
-    Four months before     & 100+ \\
-    Three months before    & 90 \\
-    One month before       & 30 \\
-    One week before        & 7 \\
-    Three days before      & 3 \\
-    Two days before        & 2 \\
-    One day before         & 1 \\
-    At submission deadline & 0 \\
-    \hline
-  \end{tabular}
-\end{table}
+Why the problem matters:
+Reproducibility is a cornerstone of scientific research. The ability to reproduce a study in order to verify the results or build on the results are important parts of a thriving scientific community. Reproducibility is contingent on access to the original data and methodology. Figure X shows an article published in arXiv, a STEM pre-print service, that references a GitHub repository as the location of the exact implementation of the original methodology. Scientific researchers are increasingly including URLs to source code repositories to supplement the methodology they detail within their publications. Additionally, open access initiatives and mandates are increasing the availability of open access data and software. However, software availability to satisfy a requirement is different than software preservation. As seen in George's instance, the lack of software preservation has the potential to nullify the advantages gained by open access data and software requirements. 
+
+The need for software preservation spans farther than the computer science discipline. Software development as a research output is increasingly prevalent in research across disciplines from biology to physics to economics. Software products contain the exact methodology used in the study and allow the study to be reproduced both by the original researchers and future researchers. 
+
+Scholarly articles and publications are well-preserved by archives like LOCKSS, CLOCKSS, and Portico. However, these archives do not preserve the resources, including Web resources, link to within the publication. 
+
+Contribution:
+Tracer? This isn't my idea... could we analyze the differences between Zenodo, Software Heritage, Web archives, and Tracer? The problem is that Tracer isn't implemented, so the big pro is the memento damage aspect which I'm not studying. 
+                  Search by URL    Download    Ephemera   Code Archived   Version Control Preserved
+Tracer                Yes            Yes          Yes          Yes                 Yes
+Zenodo                No             Yes           No          Yes         Released versions only
+Software Heritage     Kind of        Yes           No          Yes                 Yes
+Web archives          Yes            Yes          Yes         Maybe               Maybe
+
+Based on features alone, maybe I can recommend Tracer as an answer to the problem I'm listing
+
+Tool to extract URLs? Is this extraction tool going to be used as part of the workflow? 
+
+Thesis format: 
