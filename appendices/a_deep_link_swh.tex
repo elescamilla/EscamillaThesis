@@ -1,0 +1,53 @@
+\chapter{}
+\label{apdx:deep_link_swh}
+
+Using the Software Heritage API to request \url{https://github.com/aliasrobotics/RVD/blob/master/rvd\_tools/database/schema.py}.
+
+\begin{minted}
+    [
+    breaklines,
+    breakanywhere,
+    frame=single,
+    framesep=3mm,
+    baselinestretch=1.2,
+    linenos=true,
+    escapeinside=!!
+    ]
+    {bash}
+curl -H "Authorization: Bearer ${TOKEN}" -is https://archive.softwareheritage.org/api/1/origin/https://github.com/aliasrobotics/RVD/blob/master/rvd_tools/database/schema.py/visits/
+\end{minted}
+
+The response from the Software Heritage API to the above request.
+
+\begin{minted}
+    [
+    breaklines,
+    breakanywhere,
+    frame=single,
+    framesep=3mm,
+    baselinestretch=1.2,
+    linenos=true,
+    escapeinside=!!
+    ]
+    {http}
+HTTP/1.1 404 Not Found
+Content-Type: application/json
+Vary: Accept,Cookie
+Allow: OPTIONS, HEAD, GET, OPTIONS
+X-RateLimit-Limit: 1200
+X-RateLimit-Remaining: 1199
+X-RateLimit-Reset: 1675579730
+X-Frame-Options: SAMEORIGIN
+Content-Length: 143
+Via: 1.1 archive.softwareheritage.org
+X-Varnish: 12635913
+Age: 0
+Via: 1.1 varnish (Varnish/6.1)
+Strict-Transport-Security: max-age=15768000;
+Connection: keep-alive
+
+{"exception":"NotFoundExc","reason":"Origin 
+with url https://github.com/aliasrobotics/
+RVD/blob/master/rvd_tools/database/schema.py 
+not found!"}
+\end{minted}

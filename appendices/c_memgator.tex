@@ -1,0 +1,77 @@
+\chapter{}
+\label{apdx:memgator}
+
+The \verb|curl| request we used to get a JSON-formatted TimeMap from MemGator for \url{https://github.com/000justin000/gnn-residual-correlation}.
+
+\begin{minted}
+  [
+  breaklines,
+  breakanywhere,
+  frame=single,
+  framesep=3mm,
+  baselinestretch=1.2,
+  linenos=true,
+  escapeinside=!!
+  ]
+  {bash}
+
+curl -s https://memgator.cs.odu.edu/timemap/json/https://github.com/000justin000/gnn-residual-correlation
+\end{minted}
+
+The JSON response following the above request. 
+
+\begin{minted}
+  [
+  breaklines,
+  breakanywhere,
+  frame=single,
+  framesep=3mm,
+  baselinestretch=1.2,
+  linenos=true,
+  escapeinside=!!
+  ]
+  {json}
+
+  {
+    "original_uri": "https://github.com/000justin000/gnn-residual-correlation",
+    "self": "http://localhost:1208/timemap/json/https://github.com/000justin000/gnn-residual-correlation",
+    "mementos": {
+      "list": [
+        {
+          "datetime": "2020-06-19T15:23:57Z",
+          "uri": "https://web.archive.org/web/20200619152357/https://github.com/000Justin000/gnn-residual-correlation"
+        },
+        {
+          "datetime": "2020-10-25T22:28:50Z",
+          "uri": "https://web.archive.org/web/20201025222850/https://github.com/000Justin000/gnn-residual-correlation"
+        },
+        {
+          "datetime": "2022-04-25T14:02:36Z",
+          "uri": "https://web.archive.org/web/20220425140236/https://github.com/000Justin000/gnn-residual-correlation"
+        },
+        {
+          "datetime": "2022-10-14T10:40:43Z",
+          "uri": "https://web.archive.org/web/20221014104043/http://github.com/000Justin000/gnn-residual-correlation"
+        },
+        {
+          "datetime": "2023-03-21T00:26:35Z",
+          "uri": "https://web.archive.org/web/20230321002635/https://github.com/000Justin000/gnn-residual-correlation"
+        }
+      ],
+      "first": {
+        "datetime": "2020-06-19T15:23:57Z",
+        "uri": "https://web.archive.org/web/20200619152357/https://github.com/000Justin000/gnn-residual-correlation"
+      },
+      "last": {
+        "datetime": "2023-03-21T00:26:35Z",
+        "uri": "https://web.archive.org/web/20230321002635/https://github.com/000Justin000/gnn-residual-correlation"
+      }
+    },
+    "timemap_uri": {
+      "link_format": "http://localhost:1208/timemap/link/https://github.com/000justin000/gnn-residual-correlation",
+      "json_format": "http://localhost:1208/timemap/json/https://github.com/000justin000/gnn-residual-correlation",
+      "cdxj_format": "http://localhost:1208/timemap/cdxj/https://github.com/000justin000/gnn-residual-correlation"
+    },
+    "timegate_uri": "http://localhost:1208/timegate/https://github.com/000justin000/gnn-residual-correlation"
+  }
+\end{minted}
