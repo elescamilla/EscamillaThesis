@@ -49,6 +49,51 @@ URIs are not exclusively found in the References section of a publication; they 
 
 After extracting URIs from the PDFs in our corpora, we found 7,746,682 in-scope URIs: 4,039,772 URIs from the arXiv corpus and 3,706,910 URIs from the PMC corpus. Out of 2.64 million files, 1,439,177 files ($54.06\%$) contained a URI. Once we had collected all of the URIs from the PDFs, we used regular expressions to filter and categorize the URIs that referenced one of the four GHPs. As a result, URIs to repository pages with custom domain names \cite{custom-domain} were not captured. We found a total of 253,590 URIs to one of the four GHPs: 231,206 URIs from the arXiv corpus and 22,384 URIs from the PMC corpus. All GHP URIs in a publication have been deemed by the authors to be important enough for inclusion in the publication. As a result, we do not differentiate links to GHPs regardless of link depth or location in the publication. Inclusion of a GHP URI does not indicate an authorship or ownership claim. GHP URIs in a publication indicate that a resource either 1) impacted the work presented in the publications or 2) was a product of the study. Both cases communicate the importance of the repository and need for preservation. The number of URIs for each GHP are shown in Table \ref{tab:repo_count}. The URIs to GitHub account for 92.3\% of the URIs to one of the four GHPs. 
 
+\begin{lstlisting}[caption={Regular expressions to sort URLs to repositories in GitHub, GitLab, SourceForge, and Bitbucket from all other URLs}, label={lst:regex}]
+  sf = re.search(r"(sourceforge.net)", url)
+  if sf is not None:
+    if re.search(r"(?=("+'|'.join(sf_sitemap)+r"))", url) is not None:
+      # URL included in the SourceForge sitemap
+    else:
+      # SourceForge repository URL
+
+  gh = re.search(r"(github.com|github.io)", url)
+  if gh is not None:
+    if re.match(r'com,github,gist', url):
+      # URL to Gist
+    elif re.match(r'org,archive,web\)\/save\/', url):
+      # URL to Internet Archive
+    elif re.match(r'org,archive,web\)\/web\/', url):
+      # URL to Internet Archive
+    elif re.match(r'io,github', url):
+      # URL to GitHub.io
+    elif not re.match(r"^(https?:\/\/w{0,3}.?github.com\/.+)", url) or re.search(r"(?=("+'|'.join(gh_sitemap)+r"))", url) is not None:
+      # URL included in GitHub sitemap and old GitHub pages URL formats
+    else:
+      # GitHub repository URL
+  
+  gl = re.search(r"(gitlab.com|gitlab.io)", url)
+  if gl is not None:
+    if re.match(r'io,gitlab', s):
+      # URL to GitLab.io 
+    elif not re.match(r"^(https?:\/\/w{0,3}.?gitlab.com\/.+)", url) or re.search(r"(?=("+'|'.join(gl_sitemap)+r"))", url) is not None:
+      # URL included in GitLab sitemap and old GitLab pages URL formats
+    else:
+      # GitLab repository URL
+  
+  bb = re.search(r"(bitbucket.org|bitbucket.io)", url)
+  if bb is not None:
+    # is it a link to a repo?
+    if not re.match(r"^https?:\/\/(w{0,3}.?bitbucket.org\/.+|.*@bitbucket.org\/.+)", url) or re.search(r"(?=("+'|'.join(bb_sitemap)+r"))", url) is not None:
+      # is it a link to Bitbucket pages?
+      if re.match(r"^https?:\/\/((?!www).*.?bitbucket.org|.*bitbucket.io)", url):
+        # URL to Bitbucket pages
+      else:
+        # Non-repository Bitbucket URL
+    else:
+      # Bitbucket repository URL
+\end{lstlisting}
+
 \begin{table}
     \centering
     \begin{tabular}{|l|r|r|}
