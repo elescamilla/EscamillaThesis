@@ -47,9 +47,20 @@ A study by Milliken \cite{iasge_enviro_scan} conducted initial testing of GitHub
 
 URIs are not exclusively found in the References section of a publication; they also commonly appear in footnotes and the body of the text. To extract all of the URIs in each publication, regardless of location, we leveraged two Python libraries: PyPDF2\footnote{https://pypi.org/project/PyPDF2/} and PyPDFium2.\footnote{https://pypi.org/project/pypdfium2/} We used PyPDF2 to extract annotated URIs and PyPDFium2 to extract URIs from the PDF text. We followed a similar URI characterization method as that done by Klein et al. \cite{klein-plos2014} who identified URIs to ``Web at large" resources in-scope for their study. Since we are investigating links to GHPs, our primary goal with extraction was to identify URIs to one of the four GHPs. However, we also identified URIs to the Web at large to provide context for the frequency and use of URIs to the GHPs. To do this, we filtered out a number of URIs that were out of scope for this study. We dismissed URIs with a scheme other than HTTP or HTTPS, including localhost and private/protected IP ranges. We also dismissed URIs to arXiv, Elsevier RefHub,\footnote{https://refhub.elsevier.com} CrossRef Crossmark \cite{hendricks-crossref-2020}, and HTTP DOIs and, as such, follow the definition of URIs to ``Web at large" resources that are in-scope for our work. DOIs resolve to artifacts, most commonly papers but increasingly also to data (e.g., via Dryad) and source code (e.g., via Zenodo). Links to Elsevier RefHub and CrossRef Crossmark function similarly to DOIs and are often added by the publisher. We decided to exclude DOI and DOI-like references following Klein et al.'s assumption that, for the most part, such artifacts are in-scope for existing archiving and preservation efforts such as LOCKSS \cite{reich-dlib2001}, CLOCKSS \cite{reich-serials2008}, and Portico \cite{fenton-serials2006}. Our source code is available on GitHub \cite{Extract-URLs}.
 
-After extracting URIs from the PDFs in our corpora, we found 7,746,682 in-scope URIs: 4,039,772 URIs from the arXiv corpus and 3,706,910 URIs from the PMC corpus. Out of 2.64 million files, 1,439,177 files ($54.06\%$) contained a URI. Once we had collected all of the URIs from the PDFs, we used regular expressions to filter and categorize the URIs that referenced one of the four GHPs. As a result, URIs to repository pages with custom domain names \cite{custom-domain} were not captured. We found a total of 253,590 URIs to one of the four GHPs: 231,206 URIs from the arXiv corpus and 22,384 URIs from the PMC corpus. All GHP URIs in a publication have been deemed by the authors to be important enough for inclusion in the publication. As a result, we do not differentiate links to GHPs regardless of link depth or location in the publication. Inclusion of a GHP URI does not indicate an authorship or ownership claim. GHP URIs in a publication indicate that a resource either 1) impacted the work presented in the publications or 2) was a product of the study. Both cases communicate the importance of the repository and need for preservation. The number of URIs for each GHP are shown in Table \ref{tab:repo_count}. The URIs to GitHub account for 92.3\% of the URIs to one of the four GHPs. 
+After extracting URIs from the PDFs in our corpora, we found 7,746,682 in-scope URIs: 4,039,772 URIs from the arXiv corpus and 3,706,910 URIs from the PMC corpus. Out of 2.64 million files, 1,439,177 files ($54.06\%$) contained a URI. Once we had collected all of the URIs from the PDFs, we used the regular expressions shown in Listing \ref{lst:regex} to filter and categorize the URIs that referenced one of the four GHPs. As a result, URIs to repository pages with custom domain names \cite{custom-domain} were not captured. We found a total of 253,590 URIs to one of the four GHPs: 231,206 URIs from the arXiv corpus and 22,384 URIs from the PMC corpus. All GHP URIs in a publication have been deemed by the authors to be important enough for inclusion in the publication. As a result, we do not differentiate links to GHPs regardless of link depth or location in the publication. Inclusion of a GHP URI does not indicate an authorship or ownership claim. GHP URIs in a publication indicate that a resource either 1) impacted the work presented in the publications or 2) was a product of the study. Both cases communicate the importance of the repository and need for preservation. The number of URIs for each GHP are shown in Table \ref{tab:repo_count}. The URIs to GitHub account for 92.3\% of the URIs to one of the four GHPs. 
 
-\begin{lstlisting}[caption={Regular expressions to sort URLs to repositories in GitHub, GitLab, SourceForge, and Bitbucket from all other URLs}, label={lst:regex}]
+\begin{longlisting}
+\begin{minted}
+    [
+    breaklines,
+    breakanywhere,
+    frame=single,
+    framesep=3mm,
+    baselinestretch=1.2,
+    linenos=true,
+    escapeinside=!!
+    ]
+    {python}
   sf = re.search(r"(sourceforge.net)", url)
   if sf is not None:
     if re.search(r"(?=("+'|'.join(sf_sitemap)+r"))", url) is not None:
@@ -92,7 +103,10 @@ After extracting URIs from the PDFs in our corpora, we found 7,746,682 in-scope 
         # Non-repository Bitbucket URL
     else:
       # Bitbucket repository URL
-\end{lstlisting}
+\end{minted}
+\caption{Regular expressions to sort URLs to repositories in GitHub, GitLab, SourceForge, and Bitbucket from all other URLs}
+\label{lst:regex}
+\end{longlisting}
 
 \begin{table}
     \centering
