@@ -1,7 +1,9 @@
 \chapter{5}
 \label{ch:5}
 
-\todo{Name chapter}
+\todo[Name chapter, intro, summary]
+
+INTRO
 
 \section{Methodology}
 We used the dataset of GHP URIs created in Chapter 4. In total, the dataset contained 253,590 GHPs URIs that were referenced in scholarly publications. The distribution of the URIs in each GHP is shown in Table \ref{tab:ghps}. For each URI in the dataset, we conducted three tests: (1) is it available on the live Web?, (2) is it available in Software Heritage?, (3) is it available in Web archives? We also analyzed the relationship between the publication date of the earliest article to reference a URI and the date of the first Software Heritage and Web archive capture of the URI. 
@@ -24,7 +26,7 @@ We used the dataset of GHP URIs created in Chapter 4. In total, the dataset cont
 
 In this study, we adopt the terminology used by Klein et al. \cite{klein-plos2014}. A URI is \emph{publicly available} if a curl request results in a 2XX-level HTTP response code. If a URI is publicly available, we consider the URI to be \textbf{active} on the live Web. Private repositories respond to a curl request with a 404 HTTP response code. While a private repository exists and is available to the owner, it is not publicly available and accessible via the URI provided in the scholarly publication; therefore, because a URI to a private repository is not active to general users, it is not considered an active URI. Any URI that does not result in a 2XX-level HTTP response code is considered inactive, meaning that the URI is \textbf{rotten}, or is subject to link rot. In our curl requests, we opted to follow redirects and considered the resulting HTTP response code as the final status of the URI. 
 
-We utilized the Software Heritage API \cite{swh-api} to determine if Software Heritage contained a snapshot of the URI. However, Software Heritage only supports searching for URIs at the repository level, whether through their browser search interface or API request. Searching for deep links to a specific file or directory will not result in a match, even if the file or directory is available within Software Heritage's snapshot of the repository. For example, \url{https://github.com/aliasrobotics/RVD/blob/master/rvd\_tools/database/schema.py} is a URI that was extracted from an article in the arXiv corpus. As it is written, the Software Heritage API was not able to find a matching origin. The HTTP request and response are shown in Appendix \ref{apdx:deep_link_swh}. When we truncate the URI to the repository-level (\url{https://github.com/aliasrobotics/RVD}), the Software Heritage API returned a matching origin URL. To accommodate the requirements of the Software Heritage API, we transformed all deep URIs to shallow, repository level URIs and requested the resulting URI from the Software Heritage API using a personal authorization token to increase the rate limit. The Software Heritage API returned metadata for each snapshot including the origin (the original URI and the type of software origin), visit number, date of the snapshot, status of the snapshot, and the snapshot ID \cite{dicosmo-ipres2017} as shown in Appendix \ref{apdx:shallow_link_swh}. 
+We utilized the Software Heritage API \cite{swh-api} to determine if Software Heritage contained a snapshot of the URI. However, Software Heritage only supports searching for URIs at the repository level, whether through their browser search interface or API request. Searching for deep links to a specific file or directory will not result in a match, even if the file or directory is available within Software Heritage's snapshot of the repository. For example, \url{https://github.com/aliasrobotics/RVD/blob/master/rvd\_tools/database/schema.py} is a URI that was extracted from an article in the arXiv corpus. As it is written, the Software Heritage API was not able to find a matching origin. The HTTP request and response are shown in Appendix \ref{apdx:deep_link_swh}. When we truncate the URI to the repository-level (\url{https://github.com/aliasrobotics/RVD}), the Software Heritage API returned a matching origin URL. To accommodate the requirements of the Software Heritage API, we transformed all deep URIs to shallow, repository level URIs and requested the resulting URI from the Software Heritage API using a personal authorization token to increase the rate limit. The Software Heritage API returned metadata for each snapshot including the origin (the original URI and the type of software origin), visit number, date of the snapshot, status of the snapshot, and the snapshot ID \cite{dicosmo-ipres2017} as shown in Appendix \ref{apdx:shallow_link_swh}. From the API response, we extracted the date of the first and last snapshot and the total number of snapshots for each URI. 
 
 We used MemGator \cite{jcdl-alam-memgator}, a Memento \cite{RFC7089} aggregator, to search for the URIs across 12 distinct Web archives. The result of a Web archive crawling a live Web page, identified by a URI-R, is a \emph{memento}, an archived version of the URI-R at a given point in time and is identified by a URI-M. After requesting the URI from each of the Web archives, MemGator compiles all of the archives' responses for the URI-R into a TimeMap that includes the URI-M of each memento and the corresponding Memento-Datetime (i.e., the date it was archived). An example of a TimeMap returned by MemGator is shown in Appendix \ref{apdx:memgator}. From the resulting TimeMap, we extracted the Memento-Datetime of the first and last memento and the total number of mementos for each URI-R.   
 
@@ -35,17 +37,17 @@ Across all four GHPs, 93.62\% of all GHP URIs referenced in scholarly publicatio
 
 \begin{figure}
 \centering
-\begin{subfigure}{0.8\textwidth}
+\begin{subfigure}{\textwidth}
     \includegraphics[width=0.95\linewidth]{is_it_alive_short.png}
     \caption{Percent of active URIs}
     \label{fig:alive}
 \end{subfigure}
-\begin{subfigure}{0.8\textwidth}
+\begin{subfigure}{\textwidth}
     \includegraphics[width=0.95\linewidth]{is_it_in_swh_short.png}
     \caption{Percent of repository URIs captured by Software Heritage (SWH)}
     \label{fig:swh}
 \end{subfigure}
-\begin{subfigure}{0.8\textwidth}
+\begin{subfigure}{\textwidth}
     \includegraphics[width=0.95\linewidth]{is_it_archived_short.png}
     \caption{Percent of URIs that had at least one memento}
     \label{fig:timemap}
@@ -154,3 +156,36 @@ Because they have active URIs, vulnerable resources still have the opportunity t
 \end{figure}
 
 As shown in Figure \ref{fig:gh_dead_sankey}, 47.76\% of rotten GitHub URIs are unrecoverable. Inversely, 22.37\% of rotten GitHub URIs have been archived by both Software Heritage and Web archives. GitHub has a larger percentage of rotten URIs that have only been archived by Software Heritage (8.66\%) than Bitbucket (2.18\%) as shown in Figure \ref{fig:bb_dead_sankey}. Again, the distribution of rotten Bitbucket URIs is distinguishable from the distribution of rotten GitHub URIs. We found that 20.73\% of rotten Bitbucket URIs are unrecoverable while 48.91\% of rotten Bitbucket URIs have been archived by both Software Heritage and Web archives.  
+
+For both Software Heritage and Web archives, we calculated the time between the date of the first publication to reference a URI and the date of the first capture of the URI. Software Heritage was created on June 30, 2016 \cite{dicosmo_swhblog}, so we only analyzed articles that were published starting July 1, 2016. We found an average of 443 days (median of 360 days) between the first reference to the repository URI in a scholarly publication and the first capture by Software Heritage, if the repository-level URI did not have a snapshot at the time of publication. Additionally, 7,440 repository URIs that were captured before the publication date of the referencing article had not been captured since the article's publication. For these  URIs, there is an average of 253 days between the last Software Heritage snapshot and the publication date of the reference article. 
+
+As shown in Figure \ref{fig:swh_delta},
+the maximum time delta between the first reference to the repository URI in a scholarly publication and the first capture by Software Heritage has steadily decreased from 78 months for articles published in July 2016 to 9 months for articles published in April 2022. We also see that the median time delta follows a trend similar to the average time delta. The median and average time deltas have both decreased since 2021. 
+
+\begin{figure}
+    \centering
+    \includegraphics[width=\linewidth]{SWH_delta_over_time.png}
+    \caption{Months between a publication referencing a URI and the URI being captured by Software Heritage over time. Only includes URIs not been captured by Software Heritage before the publication date of the referencing article.}
+    \label{fig:swh_delta}
+\end{figure}
+
+These trends for are similar for Web archives. There was an average of 468 days and a median of 341 days between the first reference to the URI in a scholarly publication and the first memento in a Web archive, if there were no mementos of the URI prior to the publication date of the referencing article. Of the URIs that had a memento in the Web archives prior to the publication date of the article, 4,356 URIs have not been archived since the article was published, with an average of 201 days between the latest memento and the publication date. Figure \ref{fig:timemap_delta} shows that the average and maximum time deltas have followed similar trends. Additionally, the maximum time delta has steadily decreased from 128 months in January 2012 to 1 month in April 2022. While the steady decline seen in maximum and average time deltas for Software Heritage and Web archives is promising, there is still a large period of time for the URI resource to move from  vulnerable to unrecoverable before Software Heritage or Web archives are able to archive it.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=\linewidth]{archives_delta_over_time.png}
+    \caption{Number of months between a publication referencing a URI and the URI being captured by the Web archives over time. Only includes URIs not captured by the Web archives before the publication date of the referencing article.}
+    \label{fig:timemap_delta}
+\end{figure}
+
+\section{Discussion}
+
+We analyzed the GHP URIs that were extracted in a Chapter 4 from the arXiv and PMC corpora. GHP URIs from other corpora may produce a different result. For example, authors must proactively submit their paper to arXiv, which demonstrates an inclination to participate in open research. As such, authors who submit to arXiv may be more likely to submit source code projects to Software Heritage and Web archives for preservation and research reproducibility.
+
+The smaller percentage of Bitbucket and SourceForge URIs publicly available on the live Web and preserved in Software Heritage may be correlated to the usage trends we observed in Chapter 4. SourceForge was created in 1999, so older publications are more likely to contain a link to SourceForge than to other GHPs. Additionally, Bitbucket was referenced in scholarly publications more than GitHub from 2008 to 2014, which could also result in older publications containing a link to Bitbucket over other GHPs. As Klein et al. found, the likelihood of reference rot grows as the age of the URI increases\cite{klein-plos2014}, which could be reflected in the lower percentage of SourceForge and Bitbucket URIs still publicly available on the live Web. Additionally, older GHP URIs may be less likely to be preserved in Software Heritage given that Software Heritage was launched June 30, 2016. Some of the GHP URIs that are not publicly available on the live Web may have disappeared long before Software Heritage even existed to preserve them. 
+
+Our analysis looked for the presence of a snapshot in Software Heritage and a memento in Web archives. However, we did not analyze whether the snapshot or memento captured the state of the software at the time it was referenced in the publication. We also did not assess the quality of the mementos provided by Web archives. In future work, the quality of mementos could be assessed to determine if the memento provides an adequate capture of the Web page to support reproducibility. 
+
+With 93.62\% of URIs still publicly available on the live Web, there is the opportunity to submit these URIs to be preserved. The 2.02\% of URIs that are rotten and unrecoverable should serve as a warning of what could happen if the research community does not act to preserve code products as integral research products. Researchers need to take initiative to submit code products to services like Software Heritage and Web archives to ensure the code they reference is preserved for long term access.
+
+\section{Summary}

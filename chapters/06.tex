@@ -1,7 +1,9 @@
 \chapter{6}
 \label{ch:6}
 
-\todo{Name chapter}
+\todo[Name chapter, intro, summary]
+
+INTRO
 
 \section{Methodology}
 
@@ -93,3 +95,27 @@ After seeing the trends over time, we wanted to identify the most common non-GHP
     \caption{The top 15 most common hostnames for non-GHP OADS URIs and their frequencies}
     \label{tab:hostnames}
 \end{table}
+
+\section{Discussion}
+
+Our analysis found that a significant portion of OADS URIs are not GHP URIs. This shows that, while is it simple to search for OADS URIs by regular expression, regular expressions cannot detect all OADS URIs. Additionally, while the top fifteen most common hostnames are popular platforms for research artifacts, a majority of OADS URIs were to platforms archivists may not know to look for. Using a classification system like we used in this study, allows us to cast a broader net and detect OADS URIs to lesser known platforms for preservation. While GitHub, GitLab, SourceForge, and Bitbucket accounted for 127,529, or 33\%, of the 385,817 OADS URIs extracted from the arXiv corpus, focusing archival efforts on these and other popular GHPs would miss 67\% of the OADS resources included by researchers. 
+
+The delineation between OADS and non-OADS may seem clear at first glance, but is more nuanced when we look at current citation trends. For example, authors may reference a publication that introduces or discusses a dataset or software product instead of including a direct link to the hosting platform itself. This tendency may be due to the value of publication citations within academia or due to established practices within a discipline or institution, but it results in the possibility of indirect links to OADS via paper publications. For example, ScienceDirect is a digital library of journal articles and book chapters which are non-OADS, but indirect links to OADS could result in ScienceDirect URIs being classified as OADS. Figure \ref{fig:citation} shows a reference to a ScienceDirect publication being cited in an arXiv article in the context of the author listing out available packages for solving DMFT equations. Figure \ref{fig:reference} shows the reference for the ScienceDirect publication. The ScienceDirect publication was classified as an OADS URI by our machine learning classifier model despite it being a paper publication. While the citation itself is to a paper publication, the author is using the citation to indicate a software package discussed in the publication. This is one example of the delineation between OADS and non-OADS being more nuanced than it may first appear. 
+
+\begin{figure}
+    \centering
+    \includegraphics[width=\linewidth]{citation.png}
+    \caption{The citation of the ScienceDirect publication. The author is listing out available software packages and includes a citation to the ScienceDirect publication and URI.}
+    \label{fig:citation}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=\linewidth]{reference.png}
+    \caption{The reference for a ScienceDirect publication cited in an arXiv publication and classified as an OADS URI despite being a paper publication.}
+    \label{fig:reference}
+\end{figure}
+
+Our machine learning classifier model, despite good performance found in previous studies \cite{salsabil2022study}, fine tuning, and a large training set, was not perfect, as can be expected when extracting and classifying millions of URIs from 1.58 million scholarly articles. It incorrectly classified some GHP URIs as Non-OADS. In some cases, these GHP URIs were located in the footnote or in other locations that lacked the necessary context sentence around the target URI for proper classification. Despite the limitations and inaccuracies, we remain confident that utilizing machine learning models to classify OADS and non-OADS URIs will allow researchers and archivists to more easily identify less popular or niche platforms for preservation.
+
+\section{Summary}

@@ -1,7 +1,9 @@
 \chapter{4}
 \label{ch:4}
 
-\todo{Name chapter}
+\todo[Name chapter, intro, summary]
+
+INTRO
 
 \section{Methodology}
 We decided to analyze the arXiv and PubMed Central corpora as a representative sample of scholarly publications across Science, Technology, Engineering, and Math (STEM) disciplines, in order to understand how scholarly code is being referenced over time and, therefore, both woven into the fabric of our scholarly conversation and worthy of preservation. arXiv is one of the largest and most popular pre-print services, and the corpus contains over 2 million submissions \cite{fromme-cornell2022} from eight disciplines: physics, mathematics, computer science, quantitative biology, quantitative finance, statistics, electrical engineering and systems science, and economics. The arXiv corpus does not allow for anonymous submissions, is publicly available, and is accessible for programmatic acquisition and analysis. The PubMed Central (PMC) corpus contains publicly available full-text articles from a wide range of biomedical and life sciences journals. Only peer-reviewed journals are eligible for inclusion.\footnote{https://www.ncbi.nlm.nih.gov/pmc/pub/addjournal/} The most prevalent journals in the corpus are listed in Table \ref{tab:pmc_corpus} along with the number of articles in the corpus, the date of the first article available, and the date of the latest article. The size and availability of the arXiv and PMC corpora make them suitable for the purposes of our study.  
@@ -186,3 +188,11 @@ We also analyzed the use of URIs to GHPs by discipline for the arXiv corpus. Whe
     \caption{Mapping the number of links to a GHP (top half of the diagram) by discipline (bottom half) for the arXiv corpus}
     \label{fig:chord_diagram}
 \end{figure}
+
+\section{Discussion}
+
+We analyzed the holdings of the arXiv and PMC corpora, but other corpora that service a wider variety of disciplines could provide additional perspectives. Additionally, authors must submit their paper to the arXiv corpus. This could create another source of bias in that authors must be able to navigate the submission process and must choose to submit their publication. Authors who intentionally submit their paper to arXiv are proving that they value open source and resource sharing, so this may be one reason that links to GHPs are more prevalent in the arXiv corpus. The PMC corpus is an example of a corpus that does not require action by the authors. Journals apply to be included in the PMC archive and all articles from the journal are automatically included. In future work, we will look at aggregating additional corpora to obtain a more representative sample of disciplines.
+
+This analysis can also be used to supplement software preservation efforts. Curators and archivists could use these extraction methods to identify potential software of interest for their collections. Using different methods, these URIs can then be used to seed the archiving process. For instance, these URIs could be used with the Memento Tracer framework\footnote{http://tracer.mementoweb.org} proposed by Klein et al. \cite{klein-dlok2019}, which aims to strike a balance between scalability and quality for archiving scholarly code with its scholarly ephemera at scale. Memento Tracer allows users to create a heuristic called a trace, which can be used for for a class of Web publications. In testing the Memento Tracer framework, Klein et al. \cite{klein-dlok2019} was able to capture 100\% of the expected URIs for 92.83\% of the GitHub repositories in a given dataset. Additionally, the Memento Tracer framework was only 10.17 times slower than a typical crawler, while a comparable solution by Brunelle et al. \cite{brunelle-jcdl2017} was 38.9 times slower than a typical crawler. In future work, URIs derived using methods proposed in this study could be used to test the effectiveness of different archiving approaches at scale.
+
+\section{Summary}
